@@ -6,16 +6,25 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
+    private let landmark = CLLocationCoordinate2D(
+        latitude: 37.7955, longitude: -122.3937
+    )
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        Map(initialPosition: .region(
+            MKCoordinateRegion(
+                center: landmark,
+                span: MKCoordinateSpan(
+                    latitudeDelta: 0.02,
+                    longitudeDelta: 0.02
+                )
+            ))) {
+                Marker("Ferry Building", coordinate: landmark)
+            }
+            .ignoresSafeArea()
     }
 }
 
